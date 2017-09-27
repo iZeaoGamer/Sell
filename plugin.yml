@@ -1,5 +1,5 @@
 name: Sell
-api: [3.0.0-ALPHA5, 3.0.0-ALPHA6, 3.0.0, 3.0.1]
+api: [3.0.0-ALPHA8]
 main: SellHand\Main
 version: 2.0
 author: Muqsit
@@ -10,11 +10,11 @@ commands:
     permission: sell.command
 permissions:
   sell:
-    default: op
+    default: true
     children:
       sell.hand:
-        default: op
+        default: true
       sell.all:
-        default: op
+        default: true
       sell.command:
         default: true
