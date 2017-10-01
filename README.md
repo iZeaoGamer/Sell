@@ -12,3 +12,11 @@
 - Run the command ```/sell hand```.
 - TIP: If you want to sell everything that is possible to sell, run ```/sell all```.
 - If the item you are holding is configured in ```sell.yml```, the item you are holding will be sold.
+
+
+### WARNING:
+### This plugin was made compatible with 3.0.0-ALPHA7, 3.0.0-ALPHA8, and 3.0.0-ALPHA9 by TheFixerDevelopment.
+
+### This update mainly fixes /sell not working correctly.
+### Also, set the perms to default, meaning anyone can now use: /sell, /sell all, and /sell hand.
+There will be a new update release soon.
