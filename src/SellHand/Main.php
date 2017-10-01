@@ -54,7 +54,7 @@ class Main extends PluginBase implements Listener{
 					/* Disallow non-survival mode abuse */
 					if(!$sender->isSurvival()){
 						$sender->sendMessage(TF::RED . TF::BOLD ."Error: ". TF::RESET . TF::DARK_RED ."Please switch back to survival mode.");
-						return false;
+						return true;
 					}
 					
 					/* Sell Hand */
@@ -62,19 +62,19 @@ class Main extends PluginBase implements Listener{
 						if(!$sender->hasPermission("sell.hand")){
 							$error_handPermission = $this->messages->get("error-nopermission-sellHand");
 							$sender->sendMessage(TF::RED . TF::BOLD . "Error: " . TF::RESET . TF::RED . $error_handPermission);
-							return false;
+							return true;
 						}
 						$item = $sender->getInventory()->getItemInHand();
 						$itemId = $item->getId();
 						/* Check if the player is holding a block */
 						if($item->getId() === 0){
 							$sender->sendMessage(TF::RED . TF::BOLD ."Error: ". TF::RESET . TF::DARK_RED ."You aren't holding any blocks/items.");
-							return false;
+							return true;
 						}
 						/* Recheck if the item the player is holding is a block */
 						if($this->sell->get($itemId) == null){
 							$sender->sendMessage(TF::RED . TF::BOLD ."Error: ". TF::RESET . TF::DARK_RED ."This block/item cannot be sold.");
-							return false;
+							return true;
 						}
 						/* Sell the item in the player's hand */
 						EconomyAPI::getInstance()->addMoney($sender, $this->sell->get($itemId) * $item->getCount());
@@ -88,7 +88,7 @@ class Main extends PluginBase implements Listener{
 						if(!$sender->hasPermission("sell.all")){
 							$error_allPermission = $this->messages->get("error-nopermission-sellAll");
 							$sender->sendMessage(TF::RED . TF::BOLD . "Error: " . TF::RESET . TF::RED . $error_allPermission);
-							return false;
+							return true;
 						}
 						$items = $sender->getInventory()->getContents();
 						foreach($items as $item){
