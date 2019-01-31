@@ -79,6 +79,7 @@ class Main extends PluginBase implements Listener
 						}
 
 						$item = $sender->getInventory()->getItemInHand();
+						$itemName = $item->getName();
 						$itemId = $item->getId();
 						/* Check if the player is holding a block */
 						if ($item->getId() === 0) {
@@ -86,16 +87,16 @@ class Main extends PluginBase implements Listener
 						}
 
 						/* Recheck if the item the player is holding is a block */
-						if ($this->sell->get($itemId) == null) {
+						if ($this->sell->get($itemName) == null) {
 							$sender->sendMessage(TF::RED . TF::BOLD . "Error: " . TF::RESET . TF::GREEN . $item->getName() . TF::DARK_RED . " cannot be sold.");
 						}
 
 						/* Sell the item in the player's hand */
-						EconomyAPI::getInstance()->addMoney($sender , $this->sell->get($itemId) * $item->getCount());
+						EconomyAPI::getInstance()->addMoney($sender , $this->sell->get($itemName) * $item->getCount());
 						$sender->getInventory()->removeItem($item);
-						$price = $this->sell->get($item->getId()) * $item->getCount();
+						$price = $this->sell->get($item->getName()) * $item->getCount();
 						$sender->sendMessage(TF::GREEN . TF::BOLD . "(!) " . TF::RESET . TF::GREEN . "$" . $price . " has been added to your account.");
-						$sender->sendMessage(TF::GREEN . "Sold for " . TF::RED . "$" . $price . TF::GREEN . " (" . $item->getCount() . " " . $item->getName() . " at $" . $this->sell->get($itemId) . " each).");
+						$sender->sendMessage(TF::GREEN . "Sold for " . TF::RED . "$" . $price . TF::GREEN . " (" . $item->getCount() . " " . $item->getName() . " at $" . $this->sell->get($itemName) . " each).");
 
 						/* Sell All */
 					} elseif (isset($args[0]) && strtolower($args[0]) == "all") {
@@ -107,10 +108,10 @@ class Main extends PluginBase implements Listener
 
 						$items = $sender->getInventory()->getContents();
 						foreach ($items as $item) {
-							if ($this->sell->get($item->getId()) !== null && $this->sell->get($item->getId()) > 0) {
-								$price = $this->sell->get($item->getId()) * $item->getCount();
+							if ($this->sell->get($item->getName()) !== null && $this->sell->get($item->getName()) > 0) {
+								$price = $this->sell->get($item->getName()) * $item->getCount();
 								EconomyAPI::getInstance()->addMoney($sender , $price);
-								$sender->sendMessage(TF::GREEN . TF::BOLD . "(!) " . TF::RESET . TF::GREEN . "Sold for " . TF::RED . "$" . $price . TF::GREEN . " (" . $item->getCount() . " " . $item->getName() . " at $" . $this->sell->get($item->getId()) . " each).");
+								$sender->sendMessage(TF::GREEN . TF::BOLD . "(!) " . TF::RESET . TF::GREEN . "Sold for " . TF::RED . "$" . $price . TF::GREEN . " (" . $item->getCount() . " " . $item->getName() . " at $" . $this->sell->get($item->getName()) . " each).");
 								$sender->getInventory()->remove($item);
 							}
 						}
